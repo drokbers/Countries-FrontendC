@@ -35,7 +35,7 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
   };
   return (
     <div
-      className="container h-80 w-56  border-spacing-1  border border-black-300 bg-white"
+      className="container h-80 w-56 relative border-spacing-1  border border-black-300 bg-white"
       onClick={detailHandler}
     >
       <div className=" h-28 w-56">

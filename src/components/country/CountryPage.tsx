@@ -115,7 +115,7 @@ function CountryPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://restcountries.com/v3.1/all");
+        const response = await fetch("https://restcountries.com/v3.1/all?fields=name,flags,region,capital,population");
         const jsonData = await response.json();
         setData(jsonData);
       } catch (error) {

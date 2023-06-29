@@ -1,144 +1,49 @@
 import { useEffect, useState } from "react";
 import CountryCard from "./CountryCard";
+import RegionFilter from "../filters/RegionFilter";
 
 function CountryPage() {
-  // const DummyList: example[] = [
-  //   {
-  //     name: "Turkey",
-  //     population: 80234234,
-  //     region: "Eurpe",
-  //     capital: "Ankara",
-  //     flag: "https://flagcdn.com/w320/tr.png",
-  //     nativeName: "Turkiye",
-  //     subregion: "anadolu",
-  //     topLevelDomain: ".tr",
-  //     currencies: [
-  //       {
-  //         code: "TL",
-  //       },
-  //     ],
-  //     languages: [
-  //       {
-  //         name: "Turkish",
-  //       },
-  //     ],
-  //     borders: ["Iran", "Greek"],
-  //   },
-  //   {
-  //     name: "Turkey2",
-  //     population: 80234234,
-  //     region: "Eurpe",
-  //     capital: "Ankara",
-  //     flag: "https://flagcdn.com/w320/tr.png",
-  //     nativeName: "Turkiye",
-  //     subregion: "anadolu",
-  //     topLevelDomain: ".tr",
-  //     currencies: [
-  //       {
-  //         code: "TL",
-  //       },
-  //     ],
-  //     languages: [
-  //       {
-  //         name: "Turkish",
-  //       },
-  //     ],
-  //     borders: ["Iran", "Greek"],
-  //   },
-  //   {
-  //     name: "Turkey3",
-  //     population: 80234234,
-  //     region: "Eurpe",
-  //     capital: "Ankara",
-  //     flag: "https://flagcdn.com/w320/tr.png",
-  //     nativeName: "Turkiye",
-  //     subregion: "anadolu",
-  //     topLevelDomain: ".tr",
-  //     currencies: [
-  //       {
-  //         code: "TL",
-  //       },
-  //     ],
-  //     languages: [
-  //       {
-  //         name: "Turkish",
-  //       },
-  //     ],
-  //     borders: ["Iran", "Greek"],
-  //   },
-  //   {
-  //     name: "Turkey4",
-  //     population: 80234234,
-  //     region: "Eurpe",
-  //     capital: "Ankara",
-  //     flag: "https://flagcdn.com/w320/tr.png",
-  //     nativeName: "Turkiye",
-  //     subregion: "anadolu",
-  //     topLevelDomain: ".tr",
-  //     currencies: [
-  //       {
-  //         code: "TL",
-  //       },
-  //     ],
-  //     languages: [
-  //       {
-  //         name: "Turkish",
-  //       },
-  //     ],
-  //     borders: ["Iran", "Greek"],
-  //   },
-  //   {
-  //     name: "Turkey5",
-  //     population: 80234234,
-  //     region: "Eurpe",
-  //     capital: "Ankara",
-  //     flag: "https://flagcdn.com/w320/tr.png",
-  //     nativeName: "Turkiye",
-  //     subregion: "anadolu",
-  //     topLevelDomain: ".tr",
-  //     currencies: [
-  //       {
-  //         code: "TL",
-  //       },
-  //     ],
-  //     languages: [
-  //       {
-  //         name: "Turkish",
-  //       },
-  //     ],
-  //     borders: ["Iran", "Greek"],
-  //   },
-  // ];
-
   const [data, setData] = useState<any>(null);
+  const [filter, setFilter] = useState("All");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://restcountries.com/v3.1/all?fields=name,flags,region,capital,population");
+        let url = "https://restcountries.com/v3.1/all?fields=name,flags,region,capital,population";
+        if (filter) {
+          url = filter;
+        }
+        const response = await fetch(url);
         const jsonData = await response.json();
         setData(jsonData);
+        console.log(url);
       } catch (error) {
         console.error("Error fetching data:", error);
+
       }
     };
     fetchData();
-  }, []);
+  }, [filter]);
 
-  console.log(data);
+  const handleFilterChange = (filter: string) => {
+    setFilter(filter);
+  };
   const generateProducts = () => {
-    if (!data) {
+    if (!data || !Array.isArray(data)) {
       return <span>no data</span>;
     }
 
-    return data.map((country: any) => {
-      return <CountryCard key={country.name} country={country} />;
-    });
+    return data.map((country: any) => (
+      <CountryCard key={country.name} country={country} />
+    ));
   };
 
   return (
-    <div className="grid grid-cols-1  lg:grid-cols-4   md:grid-cols-2 justify-center place-items-center bg-veryLightGray gap-6 right-6 pl-10 pr-10 ">
-      {generateProducts()}
+    <div className="">
+      <RegionFilter  onFilterChange={handleFilterChange} />
+      <div className="grid grid-cols-1  lg:grid-cols-4   md:grid-cols-2 justify-center place-items-center w-full bg-veryLightGray gap-6 right-6 pl-10 pr-10 ">
+        {generateProducts()}
+      </div>
     </div>
   );
 }

@@ -7,6 +7,10 @@ function DetailPage() {
   const { index } = router.query;
   const [data, setData] = useState<any>([]);
 
+  const returnBackHandler = () => {
+    router.back();
+  };
+
   useEffect(() => {
     if (!index) return;
     const fetchData = async () => {
@@ -60,11 +64,21 @@ function DetailPage() {
 
   if (data?.flags)
     return (
-      <div className="flex  -bottom-32 md:flex-row sm:flex-col justify-center  items-center absolute top-0 bottom-0 gap-8 pl-10">
-        <div className="container max-w-lg ">
+
+
+      <div className="flex p-2 w-full -bottom-10  left-10 md:flex-row sm:flex-col justify-center  items-center absolute top-0  gap-8 ">
+   <button onClick={returnBackHandler} className="flex absolute left-0 top-32 bg-veryLightGray  rounded-md shadow-lg hover:bg-lightGray  gap-2 justify-center "> 
+   <Image
+            src={'/back.png'}
+            width={20}
+            height={20}
+            alt="go back icon"
+          />
+          <span> Back</span></button>
+        <div className="container max-w-lg sm:mt-72 md:mt-0 ">
           <Image
             src={data.flags.png}
-            width={700}
+            width={600}
             height={400}
             alt="Picture of the author"
           />

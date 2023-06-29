@@ -1,4 +1,7 @@
 import Image from "next/image";
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+
 
 
 function Header() {
@@ -8,16 +11,16 @@ function Header() {
         <div>
           <h1 className="font-bold text-lg"> Where in the world?</h1>
         </div>
-        <div className="flex flex-row items-center  gap-1">
-          <Image
+        <button className=" flex flex-row items-center  gap-1">
+        <Image
             src="/dark-mode.png"
             width={35}
             height={35}
             alt="Dark mode"
           />
           <span className="justify-items-center">Dark Mode</span>
-          
-        </div>
+        </button>
+
       </nav>
     </header>
   );

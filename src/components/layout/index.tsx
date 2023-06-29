@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import Header from './Header';
+import React, { ReactNode } from "react";
+import Header from "./Header";
 
 interface LayoutProps {
   children: ReactNode;
@@ -23,4 +23,3 @@ const Layout = ({ children, loading }: LayoutProps) => {
 };
 
 export default Layout;
-

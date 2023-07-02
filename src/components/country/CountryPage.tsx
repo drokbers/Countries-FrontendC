@@ -1,59 +1,57 @@
 import { useEffect, useState } from "react";
 import CountryCard from "./CountryCard";
 import RegionFilter from "../filters/RegionFilter";
-import SearchFilter from "../filters/SearchFilter";
+import FilterInput from "../filters/FilterInput";
+import Layout from "../layout";
+import useFilter from "@/hooks/useFilter";
+import type { Country } from "@/types/country";
 
 function CountryPage() {
-  const [data, setData] = useState<any>(null);
-  const [filter, setFilter] = useState("All");
+  const [data, setData] = useState<Country[]>([]);
+  const { filteredList, searchText, setSearchText } = useFilter(data);
+  const [regionFilter, setRegionFilter] = useState<string>();
 
+  const fetchData = async () => {
+    try {
+      let url =
+        "https://restcountries.com/v3.1/all?fields=name,flags,region,capital,population";
+
+      const response = await fetch(url);
+      const jsonData = await response.json();
+      setData(jsonData);
+      console.log(url);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let url =
-          "https://restcountries.com/v3.1/all?fields=name,flags,region,capital,population";
-        if (filter) {
-          url = filter;
-        }
-        const response = await fetch(url);
-        const jsonData = await response.json();
-        setData(jsonData);
-        console.log(url);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
     fetchData();
-  }, [filter]);
+  }, []);
 
-  const handleFilterChange = (filter: string) => {
-    setFilter(filter);
-  };
-
-  const handleSearchChange = (filter: string) => {
-    setFilter(filter);
-  };
   const generateProducts = () => {
-    if (!data || !Array.isArray(data)) {
+    if (!filteredList || !Array.isArray(filteredList)) {
       return <span>no data</span>;
     }
 
-    return data.map((country: any) => (
-      <CountryCard key={country.name} country={country} />
+    return filteredList.map((country: any, index: number) => (
+      <CountryCard key={index} country={country} />
     ));
   };
 
   return (
-    <div className="w-full pl-6 pr-6 right-6  bg-veryLightGray ">
-      <div className="flex flex-row pt-3 pb-2 items-center justify-between">
-        <SearchFilter onFilterChange={handleSearchChange} />
-        <RegionFilter onFilterChange={handleFilterChange} />
-      </div>
+    <Layout loading={false}>
+      <div className="w-full h-full pl-6 pr-6 right-6 ">
+        <div className="flex flex-row pt-3 pb-2  justify-between">
+          <FilterInput onChange={setSearchText} value={searchText || ""} />
 
-      <div className="grid grid-cols-1  lg:grid-cols-4   md:grid-cols-2 justify-center  gap-6 place-items-center  ">
-        {generateProducts()}
+          <RegionFilter onFilterChange={setRegionFilter} />
+        </div>
+
+        <div className="grid grid-cols-1  lg:grid-cols-4   md:grid-cols-2 justify-center  gap-6 place-items-center  ">
+          {generateProducts()}
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 

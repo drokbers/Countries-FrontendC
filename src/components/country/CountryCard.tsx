@@ -33,9 +33,18 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
     router.push(`/country/${country.name.common}`);
   
   };
+
+  const descriptionItem = (title: string, value: string) => {
+    return (
+      <span>
+        <span className="font-semibold">{title}</span> {value}
+      </span>
+    );
+  };
+
   return (
     <div
-      className="container h-80 w-56 relative border-spacing-1  border border-black-300 bg-white"
+      className="container h-80 w-56 relative border-spacing-1  border   dark:border-darkBlue  bg-white  dark:bg-darkBlue"
       onClick={detailHandler}
     >
       <div className=" h-28 w-56">
@@ -51,9 +60,9 @@ const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
 
       <div className="flex flex-col  gap-1 pl-2 m-4">
         <h2 className="font-bold text-lg  h-14 ">{country.name.common}</h2>
-        <span>Population: {country.population.toLocaleString()}</span>
-        <span>Region: {country.region}</span>
-        <span>Capital: {country.capital}</span>
+        {descriptionItem("Population:", country.population.toLocaleString())}
+        {descriptionItem("Region:", country.region)}
+        {descriptionItem("Capital:", country.capital)}
       </div>
     </div>
   );

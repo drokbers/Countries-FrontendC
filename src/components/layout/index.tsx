@@ -3,16 +3,16 @@ import Header from "./Header";
 
 interface LayoutProps {
   children: ReactNode;
-  loading?: boolean; // Make the 'loading' prop optional
+  loading?: boolean;
 }
 
 const Layout = ({ children, loading }: LayoutProps) => {
   return (
-    <main>
+    <main className=" bg-veryLightGray dark:bg-veryDarkBlue min-h-screen pb-20">
       <Header />
       {loading ? (
-        <div className="flex justify-center items-center h-96">
-          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-black-900"></div>
+        <div className="flex justify-center items-center max-h-screen ">
+          <div className="animate-spin rounded-full "></div>
           LOADING
         </div>
       ) : (

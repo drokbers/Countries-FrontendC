@@ -1,15 +1,14 @@
-type example = {
-  name: [
-    {
-      common:string;
-    }
-  ];
+export type Country = {
+  name: {
+    common: string;
+  };
+
   population: number;
   region: string;
   capital: string;
-  flags:[
+  flags: [
     {
-      png:string;
+      png: string;
     }
   ];
   nativeName: string;

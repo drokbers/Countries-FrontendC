@@ -21,6 +21,7 @@ module.exports = {
         lightGray: 'hsl(0, 0%, 52%)',
         veryLightGray: 'hsl(0, 0%, 98%)',
         white: 'hsl(0, 0%, 100%)',
+    
       },
       fontSize: {
         '14': '14px',

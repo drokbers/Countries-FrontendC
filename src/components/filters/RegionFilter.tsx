@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface RegionFilterProps {
-  onFilterChange: (filter: string) => void;
+  onFilterChange: Dispatch<SetStateAction<string | undefined>>;
 }
 
 function RegionFilter({ onFilterChange }: RegionFilterProps) {
@@ -10,13 +10,12 @@ function RegionFilter({ onFilterChange }: RegionFilterProps) {
   useEffect(() => {
     const updatedUrlFilter = `https://restcountries.com/v3.1/${filter}?fields=name,flags,region,capital,population`;
     onFilterChange(updatedUrlFilter);
-    console.log(updatedUrlFilter)
-  }, [filter, ]);
+    console.log(updatedUrlFilter);
+  }, [filter]);
 
   const handleRegionChange = (event: any) => {
     setFilter(event.target.value);
   };
-
 
   return (
     <div className="flex  max-w-xs pr-12 ">
@@ -24,7 +23,7 @@ function RegionFilter({ onFilterChange }: RegionFilterProps) {
         id="selectMenu"
         value={filter}
         onChange={handleRegionChange}
-        className=" p-2 mb-4  border border-gray-300 rounded-md focus:outline-none sm:text-sm"
+        className=" p-2 mb-4  border border-gray-300  dark:border-darkBlue  dark:bg-darkBlue  rounded-md focus:outline-none sm:text-sm"
       >
         <option value="all">All</option>
         <option value="region/Africa">Africa</option>

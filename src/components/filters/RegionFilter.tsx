@@ -1,35 +1,26 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface RegionFilterProps {
-  onFilterChange: Dispatch<SetStateAction<string | undefined>>;
+  value: string;
+  onChange: (region: string) => void;
 }
 
-function RegionFilter({ onFilterChange }: RegionFilterProps) {
-  const [filter, setFilter] = useState("all");
+function RegionFilter ({ onChange, value }: RegionFilterProps) {
 
-  useEffect(() => {
-    const updatedUrlFilter = `https://restcountries.com/v3.1/${filter}?fields=name,flags,region,capital,population`;
-    onFilterChange(updatedUrlFilter);
-    console.log(updatedUrlFilter);
-  }, [filter]);
-
-  const handleRegionChange = (event: any) => {
-    setFilter(event.target.value);
-  };
 
   return (
     <div className="flex  max-w-xs pr-12 ">
       <select
         id="selectMenu"
-        value={filter}
-        onChange={handleRegionChange}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         className=" p-2 mb-4  border border-gray-300  dark:border-darkBlue  dark:bg-darkBlue  rounded-md focus:outline-none sm:text-sm"
       >
-        <option value="all">All</option>
-        <option value="region/Africa">Africa</option>
-        <option value="region/Asia">Asia</option>
-        <option value="region/Europe">Europe</option>
-        <option value="region/Oceania">Oceania</option>
+        <option value="">All</option>
+        <option value="africa">Africa</option>
+        <option value="asia">Asia</option>
+        <option value="europe">Europe</option>
+        <option value="oceania">Oceania</option>
       </select>
     </div>
   );

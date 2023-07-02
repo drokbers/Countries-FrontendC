@@ -3,27 +3,40 @@ import type { Country } from "@/types/country";
 
 const useFilter = (items: Country[]) => {
   const [filteredList, setFilteredList] = useState<Country[]>(items);
-  const [searchText, setSearchText] = useState<string>();
+  const [searchText, setSearchText] = useState<string>("");
+  const [selectedRegion, setSelectedRegion] = useState<string>("");
 
   useEffect(() => {
-    if (!searchText) {
+    if (!searchText && !selectedRegion) {
       setFilteredList(items);
       return;
     }
     console.log("filteredList");
 
     const filteredItems = items.filter((item) => {
-      console.log(item.name);
       const itemName = item.name.common.toLowerCase();
-      return itemName.toLowerCase().includes(searchText.toLowerCase());
+      const itemRegion = item.region.toLowerCase();
+      return (
+        itemName.includes(searchText.toLowerCase()) &&
+        itemRegion.includes(selectedRegion.toLowerCase())
+      );
     });
 
     setFilteredList(filteredItems);
-  }, [searchText, items]);
+  }, [searchText, selectedRegion, items]);
 
-  console.log(filteredList)
+  console.log("filtlist" , filteredList);
 
-  return { filteredList, searchText, setSearchText };
+  console.log("region" , selectedRegion)
+  
+
+  return {
+    filteredList,
+    searchText,
+    selectedRegion,
+    setSelectedRegion,
+    setSearchText,
+  };
 };
 
 export default useFilter;

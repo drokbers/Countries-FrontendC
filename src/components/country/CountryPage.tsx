@@ -8,7 +8,7 @@ import type { Country } from "@/types/country";
 
 function CountryPage() {
   const [data, setData] = useState<Country[]>([]);
-  const { filteredList, searchText, setSearchText } = useFilter(data);
+  const { filteredList, searchText, selectedRegion, setSelectedRegion, setSearchText } = useFilter(data);
   const [regionFilter, setRegionFilter] = useState<string>();
 
   const fetchData = async () => {
@@ -44,7 +44,8 @@ function CountryPage() {
         <div className="flex flex-row pt-3 pb-2  justify-between">
           <FilterInput onChange={setSearchText} value={searchText || ""} />
 
-          <RegionFilter onFilterChange={setRegionFilter} />
+          <RegionFilter onChange={setSelectedRegion} value={selectedRegion || ""} />
+
         </div>
 
         <div className="grid grid-cols-1  lg:grid-cols-4   md:grid-cols-2 justify-center  gap-6 place-items-center  ">

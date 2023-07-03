@@ -11,7 +11,6 @@ const useFilter = (items: Country[]) => {
       setFilteredList(items);
       return;
     }
-    console.log("filteredList");
 
     const filteredItems = items.filter((item) => {
       const itemName = item.name.common.toLowerCase();
@@ -24,11 +23,6 @@ const useFilter = (items: Country[]) => {
 
     setFilteredList(filteredItems);
   }, [searchText, selectedRegion, items]);
-
-  console.log("filtlist" , filteredList);
-
-  console.log("region" , selectedRegion)
-  
 
   return {
     filteredList,

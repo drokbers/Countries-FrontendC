@@ -8,7 +8,7 @@ interface LayoutProps {
 
 const Layout = ({ children, loading }: LayoutProps) => {
   return (
-    <main className=" bg-veryLightGray dark:bg-veryDarkBlue min-h-screen pb-20">
+    <main className=" bg-veryLightGray dark:bg-veryDarkBlue min-h-screen h-full pb-20">
       <Header />
       {loading ? (
         <div className="flex justify-center items-center max-h-screen ">

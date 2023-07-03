@@ -14,11 +14,12 @@ export type Country = {
   nativeName: string;
   subregion: string;
   topLevelDomain: string;
-  currencies: [
-    {
-      code: string;
+  currencies: {
+    [code: string]: {
+      name: string;
+      symbol: string;
     }
-  ];
+  };
   languages: [
     {
       name: string;

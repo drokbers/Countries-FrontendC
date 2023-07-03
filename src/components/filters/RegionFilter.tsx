@@ -1,20 +1,16 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-
 interface RegionFilterProps {
   value: string;
   onChange: (region: string) => void;
 }
 
-function RegionFilter ({ onChange, value }: RegionFilterProps) {
-
-
+function RegionFilter({ onChange, value }: RegionFilterProps) {
   return (
-    <div className="flex  max-w-xs pr-12 ">
+    <div className="flex p-2 mb-4 border border-gray-300  dark:border-darkBlue  dark:bg-darkBlue  rounded-md sm:text-sm">
       <select
         id="selectMenu"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className=" p-2 mb-4  border border-gray-300  dark:border-darkBlue  dark:bg-darkBlue  rounded-md focus:outline-none sm:text-sm"
+        className="bg-transparent focus:outline-none w-full"
       >
         <option value="">All</option>
         <option value="africa">Africa</option>

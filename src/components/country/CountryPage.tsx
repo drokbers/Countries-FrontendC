@@ -8,8 +8,13 @@ import type { Country } from "@/types/country";
 
 function CountryPage() {
   const [data, setData] = useState<Country[]>([]);
-  const { filteredList, searchText, selectedRegion, setSelectedRegion, setSearchText } = useFilter(data);
-  const [regionFilter, setRegionFilter] = useState<string>();
+  const {
+    filteredList,
+    searchText,
+    selectedRegion,
+    setSelectedRegion,
+    setSearchText,
+  } = useFilter(data);
 
   const fetchData = async () => {
     try {
@@ -19,7 +24,6 @@ function CountryPage() {
       const response = await fetch(url);
       const jsonData = await response.json();
       setData(jsonData);
-      console.log(url);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -40,15 +44,17 @@ function CountryPage() {
 
   return (
     <Layout loading={false}>
-      <div className="w-full h-full pl-6 pr-6 right-6 ">
-        <div className="flex flex-row pt-3 pb-2  justify-between">
+      <div className="w-full h-full pl-6 pr-6 right-6 md:px-20">
+        <div className="flex flex-col sm:flex-row pt-3 pb-2 justify-between ">
           <FilterInput onChange={setSearchText} value={searchText || ""} />
 
-          <RegionFilter onChange={setSelectedRegion} value={selectedRegion || ""} />
-
+          <RegionFilter
+            onChange={setSelectedRegion}
+            value={selectedRegion || ""}
+          />
         </div>
 
-        <div className="grid grid-cols-1  lg:grid-cols-4   md:grid-cols-2 justify-center  gap-6 place-items-center  ">
+        <div className="flex flex-wrap justify-between gap-8">
           {generateProducts()}
         </div>
       </div>
